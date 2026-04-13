@@ -1,9 +1,24 @@
 ---
 name: seedance-prompt-builder
-description: Writes paste-ready Seedance 2.0 video prompts from a creative brief. Use whenever the user wants to generate a Seedance prompt, plan a shot, build a product ad, create a brand film, animate a scene, or mentions Seedance, Higgsfield, ByteDance video, or AI video generation. Also trigger when the user describes a visual sequence, ad concept, character action, product demo, or any video they want turned into a generation-ready prompt — even without saying "Seedance." Trigger phrases include "write a video prompt", "Seedance prompt", "make a video of", "animate this", "product ad with AI video", "turn this product photo into a video", "shot list for Seedance", or any brief that needs to become a video generation prompt.
+description: Writes paste-ready Seedance 2.0 video prompts as timestamped shot lists (1–2 second beats) — never as single prose paragraphs. Use whenever the user wants a Seedance prompt, plan a shot, build a product ad, create a brand film, animate a scene, or mentions Seedance, Higgsfield, ByteDance video, or AI video generation. Also trigger when the user describes a visual sequence, ad concept, character action, product demo, or any video they want turned into a generation-ready prompt — even without saying "Seedance." Trigger phrases include "write a video prompt", "Seedance prompt", "make a video of", "animate this", "product ad with AI video", "turn this product photo into a video", "shot list for Seedance", or any brief that needs to become a video generation prompt.
 ---
 
 # Seedance 2.0 Prompt Builder
+
+## 🚨 MANDATORY OUTPUT FORMAT — READ FIRST 🚨
+
+**Every prompt you output is a timestamped shot list with 1–2 second beats.** Not a single prose paragraph. Not a block of description. A numbered list of timed beats: `Shot 1 (0–2s): …` `Shot 2 (2–4s): …` etc.
+
+Rules that are not negotiable:
+- 5–10s prompt = 4–7 beats, 1–2s each
+- 10–15s prompt = 8–12 beats, 1–2s each
+- Never stack beats longer than 2 seconds except in single atomic sub-5s clips
+- If you're about to write a prose prompt, stop — convert to beats before outputting
+- Every reference file in this skill (product-ads.md, multi-shot.md, etc.) uses timestamped beats. Do not collapse them into prose.
+
+This is the #1 source of Seedance quality. Skip this rule and the generation paces badly.
+
+---
 
 Write paste-ready prompts for ByteDance's Seedance 2.0 video model (as accessed via Higgsfield, Dreamina, CapCut, Arcads, or the official API).
 
@@ -15,7 +30,7 @@ Only the prompt text and any uploaded references (@Image1, @Video1, @Audio1) go 
 
 1. Read the user's brief.
 2. If the brief is too vague to build a full prompt (e.g. "make something cool"), ask ONE focused clarifying question. Otherwise proceed.
-3. **Break the video into timestamped beats (1–4 seconds each).** This is not optional — every prompt longer than 5 seconds is a timestamped shot list. See "Timestamping" below.
+3. **Break the video into timestamped beats (1–2 seconds each).** This is not optional — every prompt longer than 5 seconds is a timestamped shot list. See "Timestamping" below.
 4. If the brief involves a specific use case, load the matching reference file:
    - **Product ads / UGC / ecommerce** → read `references/product-ads.md`
    - **Beat pacing, transitions, per-beat identity locking** → read `references/multi-shot.md`
@@ -137,7 +152,7 @@ For multi-reference prompts or character locking, read `references/references-sy
 
 ## Timestamping — the mandatory default
 
-**Every prompt longer than 5 seconds is a timestamped shot list.** Not a prose block. Not a single continuous description. A list of 1–4 second beats, each with its own number, timestamp, and action.
+**Every prompt longer than 5 seconds is a timestamped shot list.** Not a prose block. Not a single continuous description. A list of 1–2 second beats, each with its own number, timestamp, and action.
 
 This is how Rourke Heath prompts and how the official Seedance docs recommend structuring anything longer than a few seconds. Beats get better pacing fidelity than prose because Seedance uses them as scene anchors that pin exactly when each action should start and end. Prose prompts leave the model to guess timing, and it often rushes or skips beats.
 

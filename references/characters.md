@@ -78,17 +78,21 @@ All three combined: substantially reduces drift. Any one alone: drift happens.
 
 **Hard cap: 1–2 characters per generation.** Three or more causes identity confusion.
 
-For two characters, assign explicit roles:
+For two characters, assign explicit roles AND use timestamped beats. 10s example:
 ```
-The woman in @Image1 as the lead character. The man in @Image2 as the supporting
-character. They are in a coffee shop at morning light. The woman hands him the
-product from @Image3 and smiles. Woman from @Image1 identical, man from @Image2
-identical, product from @Image3 identical.
+The woman in @Image1 as the lead. The man in @Image2 as the supporting character. Coffee shop, soft morning light.
+
+Shot 1 (0–2s): Woman from @Image1 sits across from man from @Image2, product from @Image3 on the table between them. Camera: locked medium.
+Shot 2 (2–4s): Woman from @Image1 picks up the product from @Image3 and hands it to the man from @Image2. Camera: slow 6-inch dolly-in.
+Shot 3 (4–7s): Signature beat — man from @Image2 takes it, examines it, reacts naturally. Stacked effects: focus pull from woman to man + gentle speed ramp (deceleration) to ~50% speed.
+Shot 4 (7–10s): Speed ramps back up. Both share a knowing look. Energy resolves — natural rest pose, framing holds.
+
+Woman from @Image1 identical throughout. Man from @Image2 identical throughout. Product from @Image3 identical — same shape, label. Smooth motion, no identity drift on either character.
 ```
 
 If the creative NEEDS 3+ characters, split into multiple generations:
-- Generation 1: Two characters set up the scene
-- Generation 2: The third character enters from their POV
+- Generation 1: Two characters set up the scene (timestamped beats)
+- Generation 2: The third character enters from their POV (timestamped beats)
 - Stitch in post
 
 ## Fixing morphing / drift
@@ -105,14 +109,16 @@ Common drift symptoms and fixes:
 
 ## One uncommon trick: dual reference for identity + outfit
 
-If the character's outfit matters (fashion ads, uniforms), split the reference:
-
+If the character's outfit matters (fashion ads, uniforms), split the reference. Uploads: `@Image1` = character face/features sheet, `@Image2` = outfit/wardrobe reference. 8s example:
 ```
-Uploads: @Image1 = character face/features sheet, @Image2 = outfit/wardrobe reference
+The character with the face from @Image1, wearing the outfit from @Image2, walks through a sunlit park. Warm golden hour sidelight.
 
-"The character with the face from @Image1 wearing the outfit from @Image2 walks
-through a sunlit park. Face features from @Image1 identical. Outfit from @Image2
-identical — same silhouette, same colors, same texture."
+Shot 1 (0–2s): Character (face from @Image1, outfit from @Image2) walks into frame, medium shot. Camera: tracking alongside.
+Shot 2 (2–4s): Character turns slightly, the outfit from @Image2 catches sidelight, fabric texture legible. Camera: continues tracking, 6-inch dolly-in.
+Shot 3 (4–6s): Signature beat — character stops, face from @Image1 fully lit, holds a small pose. Stacked effects: shallow rack focus + gentle speed ramp (deceleration) to ~60% speed.
+Shot 4 (6–8s): Energy resolves — character continues walking, framing stable, light holds warm. Camera comes to rest.
+
+Face features from @Image1 identical throughout. Outfit from @Image2 identical — same silhouette, colors, texture. Smooth motion, no identity drift.
 ```
 
 This lets Seedance lock face and wardrobe independently. Useful when you have multiple outfits planned for the same character.
