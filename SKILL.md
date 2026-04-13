@@ -5,7 +5,7 @@ description: Writes paste-ready Seedance 2.0 video prompts as timestamped shot l
 
 # Seedance 2.0 Prompt Builder
 
-Write paste-ready prompts for ByteDance's Seedance 2.0 video model (as accessed via Higgsfield, Dreamina, CapCut, Arcads, or the official API). Every prompt is a timestamped shot list with 1–2 second beats — the rules and examples below make this the only output shape.
+Write paste-ready prompts for ByteDance's Seedance 2.0 video model (Higgsfield, Dreamina, CapCut, Arcads, or API).
 
 ## What goes into Seedance — and what doesn't
 
@@ -168,34 +168,55 @@ Each beat must have:
 
 Only one case: the entire clip is a single atomic action under 5 seconds (e.g., a 3-second hero macro of a bottle with no character or camera motion). Everything else gets timestamped.
 
-## Output format
+## Output format — strict template
 
-Always structure the output like this:
+Use this exact template. Do NOT add an opening prose paragraph before the shots. Do NOT collapse multiple beats into prose. Every shot is a multi-line bulleted block.
 
 ```
 # Seedance 2.0 Prompt
 
 **Target duration:** [X] seconds
-**References to upload:** [list any @Image/@Video/@Audio the user needs to upload, or "text-only"]
+**Aspect ratio:** [16:9 / 9:16 / 1:1]
+**References to upload:** [list @Image1/@Video1/@Audio1 roles, or "text-only"]
 
 ## Prompt (copy this into Seedance)
 
+SHOT 1 (0–Xs) — [Shot name]
+• ACTION: [one verb, quantified]
+• CAMERA: [one move, e.g. slow dolly-in 6 inches]
+• LIGHT: [lighting note]
+• EFFECT: [named effect or "none"]
+• @REFS: [which @Image/@Video apply]
+
+SHOT 2 (Xs–Ys) — [Shot name]
+• ACTION: ...
+• CAMERA: ...
+• LIGHT: ...
+• EFFECT: ...
+• @REFS: ...
+
+[... more shots at 1–2s each ...]
+
+SHOT N (…–Xs) — Resolution (SIGNATURE moment if it's the hero beat)
+• ACTION: ...
+• CAMERA: ...
+• LIGHT: ...
+• EFFECT: ...
+• @REFS: ...
+
+STYLE: [one strong visual anchor — film stock, director style, color palette]
+IDENTITY LOCK: [Product/character from @Image1 identical — same shape/label/face]
+CONSTRAINTS: smooth motion, stable framing, no warping, no flicker, no identity drift
 ```
-[Opening scene-setting sentence — subject, environment, lighting.]
 
-Shot 1 (0–Xs): [action, camera, effect/lighting note]
-Shot 2 (Xs–Ys): [action, camera, effect/lighting note]
-Shot 3 (Ys–Zs): [action, camera, effect/lighting note]
-...
+Rules:
+- One SHOT block per beat. 1–2 seconds per beat.
+- Each shot is the five bullets above. Always five. If an element doesn't apply, write "none" — don't omit the bullet.
+- Mark the single hero beat with `(SIGNATURE)` after the shot name.
+- STYLE / IDENTITY LOCK / CONSTRAINTS go at the end as three labeled lines.
+- Do not write any prose outside of this template.
 
-[Closing line with overall camera arc if applicable, style anchor, @reference role locks, and the positive-constraint tail.]
-```
-
-**Duration setting in Higgsfield:** [X seconds]
-**Aspect ratio:** [16:9 / 9:16 / 1:1 — match brief or default to 16:9]
-```
-
-Only add a "Director's notes" section at the bottom if the user explicitly asks for planning, effects breakdown, or a shot-by-shot inventory. Default output is prompt-only.
+Only add a "Director's notes" section at the bottom if the user explicitly asks for planning. Default output is prompt-only.
 
 ## Constraints: the reliable positive-constraint tail
 
@@ -233,26 +254,47 @@ If the brief is workable, don't interrogate. Only ask ONE question if a critical
 # Seedance 2.0 Prompt
 
 **Target duration:** 10 seconds
-**References to upload:** @Image1 (product photo of the protein bar). If you want a specific creator likeness, generate a stylized character sheet first (Nano Banana or Midjourney) — real face photos are blocked at upload.
+**Aspect ratio:** 9:16
+**References to upload:** @Image1 = product photo of the protein bar. For a creator likeness, generate a stylized character sheet in Nano Banana or Midjourney first — real face photos are blocked at upload.
 
 ## Prompt (copy this into Seedance)
 
-A woman in her late twenties in a bright modern kitchen, soft morning light pouring through a north-facing window from camera-left, warm skin tones, lightly imperfect handheld framing.
+SHOT 1 (0–2s) — Noticing
+• ACTION: woman holds the protein bar at chest height, label facing camera
+• CAMERA: handheld medium, subtle natural shake
+• LIGHT: soft north-window daylight from camera-left, warm amber skin tones
+• EFFECT: none, low density
+• @REFS: @Image1 for product shape and label
 
-Shot 1 (0–2s): The woman holds the protein bar from @Image1 at chest height, label facing camera, casually noticing it. Camera: handheld medium, subtle natural shake.
+SHOT 2 (2–4s) — Peeling
+• ACTION: woman peels wrapper halfway down, motion unhurried
+• CAMERA: handheld, 1-foot dolly-in toward her hands
+• LIGHT: unchanged
+• EFFECT: none
+• @REFS: @Image1 wrapper clean and legible
 
-Shot 2 (2–4s): She peels the wrapper halfway down, the motion unhurried, the wrapper from @Image1 staying clean and legible. Camera: continuing handheld, 1-foot dolly-in toward her hands. Low effect density.
+SHOT 3 (4–6s) — First Bite (SIGNATURE)
+• ACTION: woman takes the first slow bite, eyes close briefly
+• CAMERA: continuing handheld, holds medium close
+• LIGHT: unchanged
+• EFFECT: stacked — shallow rack focus from wrapper to face + speed ramp (deceleration) to ~50% speed
+• @REFS: @Image1 still visible in hand
 
-Shot 3 (4–6s): Signature beat — she takes the first slow bite, eyes closing briefly on the taste. Stacked effects: shallow rack focus pulling from the wrapper to her face + gentle speed ramp (deceleration) to approximately 50% speed during the bite.
+SHOT 4 (6–8s) — Reaction
+• ACTION: expression shifts from curious to pleased, small smile breaks
+• CAMERA: handheld, speed ramps back to normal, settles to medium
+• LIGHT: unchanged
+• EFFECT: speed ramp (acceleration) back to normal
+• @REFS: none
 
-Shot 4 (6–8s): Speed ramps back up to normal. Her expression shifts from curious to pleased, a small smile breaks. Camera: continuing handheld, settling back out to medium framing.
+SHOT 5 (8–10s) — Resolve
+• ACTION: woman lowers bar into frame beside her, nods off-camera
+• CAMERA: handheld calms, framing stabilizes
+• LIGHT: warm soft daylight holds
+• EFFECT: none
+• @REFS: @Image1 wrapper still legible
 
-Shot 5 (8–10s): She lowers the bar into frame beside her, wrapper from @Image1 still legible, turns slightly and nods at something off-camera. Energy resolves — handheld motion calms, framing stabilizes, warm soft light holds.
-
-Style: iPhone UGC aesthetic, natural daylight, warm amber skin tones, 35mm film-like texture. Product wrapper from @Image1 identical throughout — same color, same logo, same text. Smooth handheld motion, stable framing through signature beat, natural skin tones, photographic realism, no warping, no identity drift, no flicker.
-
-**Duration setting in Higgsfield:** 10 seconds
-**Aspect ratio:** 9:16 (UGC default)
+STYLE: iPhone UGC aesthetic, natural daylight, warm amber skin tones, 35mm film texture
+IDENTITY LOCK: Product from @Image1 identical throughout — same color, same logo, same text
+CONSTRAINTS: smooth handheld motion, stable framing, natural skin tones, photographic realism, no warping, no identity drift, no flicker
 ```
-
-This example shows the full pattern: opening scene-setting sentence, 5 timestamped beats of 1–2s each, one action verb per beat, one camera instruction per beat (plus continuity notes), quantified numbers (1-foot dolly, 50% speed), explicit signature beat with stacked effects called out, density contrast (low → signature → resolve), per-beat @reference re-locking, and the positive-constraint tail.

@@ -56,59 +56,35 @@ Wrong phrasing causes wrong behavior. If you see drift on a product, check wheth
 
 ## Common multi-reference patterns
 
-Every pattern below is beat-structured. Timestamps are mandatory — see SKILL.md's Timestamping section. Never collapse these into prose blocks.
+For full worked prompts using these patterns, see `product-ads.md` (product + character), `multi-shot.md` (brand film), and `characters.md` (multi-character, dual-reference face+outfit). These are role-assignment snippets showing how to write the `@REFS` bullet when using multiple assets.
 
-### Pattern 1 — Product + character (Format 2 from product-ads.md), 10s example
+### Product + character (Format 2 from product-ads.md)
 Uploads: `@Image1` = stylized character sheet, `@Image2` = product photo.
-```
-Medium shot of the character from @Image1 in a modern kitchen, soft morning light from a left window.
 
-Shot 1 (0–2s): Character from @Image1 holds the product from @Image2 at chest height, label facing camera. Camera: locked medium.
-Shot 2 (2–4s): Character from @Image1 brings product from @Image2 closer, takes a small sip. Camera: 6-inch dolly-in.
-Shot 3 (4–7s): Signature beat — character reacts naturally, eyes brighten. Stacked effects: focus pull from product to face + gentle speed ramp (deceleration) to ~50% speed.
-Shot 4 (7–9s): Speed ramps back up, character nods approvingly. Camera: holds medium.
-Shot 5 (9–10s): Energy resolves — character lowers product from @Image2 beside them, framing stable.
+Per-shot `@REFS` bullet reads: `@Image1 character identity, @Image2 product shape + label`.
 
-Character from @Image1 identical throughout — same face, hair, outfit. Product from @Image2 identical — same color, logo, shape. Smooth motion, no identity drift.
-```
+At end: `IDENTITY LOCK: Character from @Image1 identical. Product from @Image2 identical — same shape, label.`
 
-### Pattern 2 — Character + location + camera reference, 10s example
-Uploads: `@Image1` = character sheet, `@Image2` = location photo, `@Video1` = reference video of a camera push-in.
-```
-The character from @Image1 stands in the environment shown in @Image2, golden hour lighting.
+### Character + location + camera reference
+Uploads: `@Image1` = character, `@Image2` = location, `@Video1` = camera move reference.
 
-Shot 1 (0–2s): Character from @Image1 faces camera at medium distance in the environment from @Image2. Camera: matches the opening framing of @Video1.
-Shot 2 (2–5s): Reference @Video1 for camera movement and pacing — apply the push-in motion to the character from @Image1 in this new scene. Low effect density.
-Shot 3 (5–7s): Signature beat — character's face fully revealed in the push-in, environment from @Image2 soft-focused behind. Stacked effects: shallow rack focus + golden hour rim light bloom.
-Shot 4 (7–10s): Energy resolves — push-in completes, character from @Image1 holds frame in hero close, lighting holds.
+Per-shot `@REFS` bullet: `@Image1 character, @Image2 environment, @Video1 for camera pacing`.
 
-Character from @Image1 identical throughout. Environment from @Image2 consistent. Camera behavior referenced from @Video1. Smooth motion, no identity drift.
-```
+At end: `Apply camera behavior from @Video1 throughout. Character from @Image1 identical. Environment from @Image2 consistent.`
 
-### Pattern 3 — Product + audio pacing, 8s example
-Uploads: `@Image1` = product, `@Audio1` = 8-second music cue with clear beats.
-```
-Extreme macro on the product from @Image1, single drop of water beading at the rim, soft backlight.
+### Product + audio pacing
+Uploads: `@Image1` = product, `@Audio1` = music cue.
 
-Shot 1 (0–2s): Product from @Image1 at rest, water droplet forming slowly. Camera: locked macro. Match tempo to the intro of @Audio1. Low density.
-Shot 2 (2–4s): Droplet grows, about to fall. Camera: slow dolly-in, 6 inches. Motion pace matches @Audio1 beat progression.
-Shot 3 (4–6s): Signature beat — droplet falls and hits surface on the downbeat of @Audio1. Stacked effects: shallow rack focus + speed ramp (deceleration) to ~30% speed on impact.
-Shot 4 (6–8s): Energy resolves — ripple settles, product from @Image1 holds in final hero frame. Music tails out. Camera at rest.
+Per-shot `@REFS` bullet: `@Image1 product, @Audio1 sets beat tempo`.
 
-Product from @Image1 identical, label sharp. Motion synced to @Audio1. Smooth motion, stable framing.
-```
+At end: `Motion and beat transitions synced to @Audio1. Product from @Image1 identical.`
 
-### Pattern 4 — First-frame pin + last-frame pin, 6s example
+### First-frame + last-frame pin
 Uploads: `@Image1` = opening frame, `@Image2` = closing frame.
-```
-Use @Image1 as the first frame. Use @Image2 as the final frame.
 
-Shot 1 (0–2s): The scene from @Image1 holds briefly, subtle atmospheric motion — drifting clouds, faint breeze, ambient light. Camera: begins slow push-in.
-Shot 2 (2–4s): Continued slow push-in, environment transitions gradually toward the state shown in @Image2. Low density.
-Shot 3 (4–6s): Final frame settles into @Image2 exactly. Energy resolves — motion ceases, framing locks. No cut.
+In SHOT 1 `@REFS`: `@Image1 pinned as first frame`. In final SHOT `@REFS`: `@Image2 pinned as final frame`.
 
-No cuts, continuous single take. First frame matches @Image1 exactly. Final frame matches @Image2 exactly.
-```
+At end: `No cuts, continuous single take. First frame matches @Image1. Final frame matches @Image2.`
 
 ## Double-check checklist before delivering the prompt
 

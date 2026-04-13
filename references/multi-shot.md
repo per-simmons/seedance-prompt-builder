@@ -25,23 +25,9 @@ From the Seedance prompting docs and real-world creator practice:
 
 The only exception: a single atomic action under 5s (e.g., a 3-second hero macro of a bottle with no character or camera motion). Everything else timestamps.
 
-## Timestamp syntax (pick one — stay consistent)
+## Beat format
 
-### Option A — Shot-number labeled
-```
-Shot 1 (0–4s): [description, camera, action]
-Shot 2 (4–8s): [description, camera, action]
-Shot 3 (8–12s): [description, camera, action]
-```
-
-### Option B — Time-only labeled (tighter, preferred for ads)
-```
-0–4s: [description]
-4–8s: [description]
-8–12s: [description]
-```
-
-Both work. Option A is clearer when you reference shots later in the prompt; Option B is more compact.
+Follow the SKILL.md output format — multi-line SHOT bullets, not one-liners. See SKILL.md's "Output format — strict template" section for the canonical shape.
 
 ## Transition vocabulary
 
@@ -102,37 +88,82 @@ A 10-second prompt with 2 beats (5 seconds each) is NOT acceptable. Seedance nee
 
 ## Worked examples
 
-### Example: Brand film — 15s, seamless single take, 16:9
-Character `@Image1` = stylized runner sheet. 10 beats of ~1.5s each.
+### Example: Brand film — 15s, single seamless take, 16:9
+`@Image1` = stylized runner character sheet. 10 beats of ~1.5s each.
 ```
-A runner at dawn on a mountain trail, golden hour backlight cutting through pine trees, warm atmospheric mist.
+SHOT 1 (0–1.5s) — Laces
+• ACTION: close on the runner's fingers tightening a shoelace
+• CAMERA: locked macro
+• LIGHT: golden hour backlight through pine trees
+• EFFECT: none, low density
+• @REFS: @Image1 runner identity
 
-Shot 1 (0–1.5s): Extreme close on the runner's lacing fingers tightening a shoe. Camera: locked macro. Low density.
-Shot 2 (1.5–3s): Close on the runner's face from @Image1, steam rising from their breath. Camera: slow dolly-out, 6 inches.
-Shot 3 (3–4.5s): Medium shot of the runner from @Image1 beginning to move, feet lifting off the trail. Camera: continues dolly-out.
-Shot 4 (4.5–6s): Tracking shot alongside the runner, trail narrowing into switchbacks, dust kicking up. Camera: tracking parallel.
-Shot 5 (6–7.5s): Signature beat — close on the runner's feet from @Image1 striking the trail. Stacked effects: shallow rack focus on heel strike + speed ramp (deceleration) to ~25% speed.
-Shot 6 (7.5–9s): Speed ramps back to normal. Wide shot, runner small against the valley, ridge ahead.
-Shot 7 (9–10.5s): Runner from @Image1 pushes up the final switchback, legs driving. Camera: low angle tracking.
-Shot 8 (10.5–12s): Runner crests the ridge, silhouetted against morning light. Camera: pulls back into wider framing.
-Shot 9 (12–13.5s): Runner from @Image1 stops, turns toward the valley. Camera: slow arc to over-the-shoulder.
-Shot 10 (13.5–15s): Energy resolves — runner faces the valley, mist rolling across the peaks, warm light holds. Camera comes to rest wide.
+SHOT 2 (1.5–3s) — Breath
+• ACTION: close on runner's face, steam rising from their breath
+• CAMERA: slow dolly-out, 6 inches
+• LIGHT: rim light catches breath vapor
+• EFFECT: none
+• @REFS: @Image1
 
-One continuous uncut shot feel. Style: cinematic brand film, anamorphic lens, warm color grade, shallow depth of field. Runner from @Image1 identical throughout. Smooth motion, stable framing, natural light progression, no warping, no flicker.
+SHOT 3 (3–4.5s) — Lift Off
+• ACTION: runner begins to move, feet lifting from trail
+• CAMERA: continues dolly-out
+• LIGHT: unchanged
+• EFFECT: none
+• @REFS: @Image1
+
+SHOT 4 (4.5–6s) — Track
+• ACTION: runner moves through narrowing switchbacks, dust kicking up
+• CAMERA: tracking parallel alongside runner
+• LIGHT: unchanged
+• EFFECT: none
+• @REFS: @Image1
+
+SHOT 5 (6–7.5s) — Heel Strike (SIGNATURE)
+• ACTION: close on runner's feet striking the trail, dust burst at contact
+• CAMERA: low angle, locked
+• LIGHT: rim catches dust particles
+• EFFECT: stacked — shallow rack focus on heel strike + speed ramp (deceleration) to ~25% speed
+• @REFS: @Image1
+
+SHOT 6 (7.5–9s) — Release
+• ACTION: runner continues forward, pace picking back up
+• CAMERA: wide shot, runner small against valley
+• LIGHT: unchanged
+• EFFECT: speed ramp (acceleration) back to normal
+• @REFS: @Image1
+
+SHOT 7 (9–10.5s) — Climb
+• ACTION: runner pushes up final switchback, legs driving
+• CAMERA: low-angle tracking
+• LIGHT: unchanged
+• EFFECT: none
+• @REFS: @Image1
+
+SHOT 8 (10.5–12s) — Crest
+• ACTION: runner crests the ridge, silhouetted against morning light
+• CAMERA: pulls back into wider framing
+• LIGHT: warm golden hour full behind
+• EFFECT: none
+• @REFS: @Image1
+
+SHOT 9 (12–13.5s) — Turn
+• ACTION: runner stops, turns toward the valley
+• CAMERA: slow arc to over-the-shoulder
+• LIGHT: unchanged
+• EFFECT: none
+• @REFS: @Image1
+
+SHOT 10 (13.5–15s) — Resolve
+• ACTION: runner faces the valley, mist rolling across peaks
+• CAMERA: comes to rest wide
+• LIGHT: warm light holds
+• EFFECT: none
+• @REFS: @Image1
+
+STYLE: cinematic brand film, anamorphic lens, warm color grade, shallow depth of field
+IDENTITY LOCK: Runner from @Image1 identical throughout
+CONSTRAINTS: smooth motion, stable framing, natural light progression, no warping, no flicker
 ```
 
-### Example: Product transformation — 12s environment warp, 9:16 for Reels
-`@Image1` = Stanley tumbler product photo. 7 beats.
-```
-The Stanley tumbler from @Image1 sits on a pristine modern desk, soft daylight from a left window.
-
-Shot 1 (0–2s): Wide static on the Stanley from @Image1, desk objects around it, flat daylight. Camera: locked. Low density.
-Shot 2 (2–3.5s): A hand enters frame from the right and reaches toward the Stanley from @Image1. Camera: cut to medium.
-Shot 3 (3.5–5s): Hand lifts the Stanley from @Image1 off the desk toward camera. Camera: dolly-in, 6 inches.
-Shot 4 (5–7s): Signature beat — as the Stanley from @Image1 moves through frame, the desk dissolves into a mountain trail at golden hour around it. Stacked effects: environment dissolve + speed ramp (deceleration) to ~50% speed through the warp.
-Shot 5 (7–8.5s): Speed ramps back up. Hand places Stanley from @Image1 on a granite rock, steam rising from the lid, trail and peaks now fully established behind.
-Shot 6 (8.5–10.5s): Camera dolly-in on the Stanley from @Image1, warm golden hour backlight, hero framing on the lid. Medium density.
-Shot 7 (10.5–12s): Energy resolves — motion ceases, Stanley from @Image1 hero-lit on the rock, mountain range behind, warm light holds. Camera at rest.
-
-Style: cinematic lifestyle commercial, warm color grade, shallow depth of field. Product from @Image1 identical throughout — same color, same logo, same shape. Smooth environmental transition, stable framing on the after state, consistent product identity, no warping, no flicker.
-```
+For a product-transformation example (environment warp), see `product-ads.md` → Stanley tumbler worked example.

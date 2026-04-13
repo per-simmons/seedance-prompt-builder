@@ -78,16 +78,39 @@ All three combined: substantially reduces drift. Any one alone: drift happens.
 
 **Hard cap: 1–2 characters per generation.** Three or more causes identity confusion.
 
-For two characters, assign explicit roles AND use timestamped beats. 10s example:
+For two characters, assign explicit roles using the SKILL.md format. 10s example:
 ```
-The woman in @Image1 as the lead. The man in @Image2 as the supporting character. Coffee shop, soft morning light.
+SHOT 1 (0–2s) — Sit
+• ACTION: woman sits across from man at coffee shop table, product between them
+• CAMERA: locked medium
+• LIGHT: soft morning light from window
+• EFFECT: none
+• @REFS: @Image1 woman, @Image2 man, @Image3 product
 
-Shot 1 (0–2s): Woman from @Image1 sits across from man from @Image2, product from @Image3 on the table between them. Camera: locked medium.
-Shot 2 (2–4s): Woman from @Image1 picks up the product from @Image3 and hands it to the man from @Image2. Camera: slow 6-inch dolly-in.
-Shot 3 (4–7s): Signature beat — man from @Image2 takes it, examines it, reacts naturally. Stacked effects: focus pull from woman to man + gentle speed ramp (deceleration) to ~50% speed.
-Shot 4 (7–10s): Speed ramps back up. Both share a knowing look. Energy resolves — natural rest pose, framing holds.
+SHOT 2 (2–4s) — Hand Off
+• ACTION: woman picks up product and hands it to the man
+• CAMERA: slow dolly-in, 6 inches
+• LIGHT: unchanged
+• EFFECT: none
+• @REFS: @Image1, @Image2, @Image3
 
-Woman from @Image1 identical throughout. Man from @Image2 identical throughout. Product from @Image3 identical — same shape, label. Smooth motion, no identity drift on either character.
+SHOT 3 (4–7s) — Reaction (SIGNATURE)
+• ACTION: man takes product, examines it, reacts naturally
+• CAMERA: holds medium
+• LIGHT: unchanged
+• EFFECT: stacked — focus pull from woman to man + speed ramp (deceleration) to ~50% speed
+• @REFS: @Image2 man face clear, @Image3 product visible
+
+SHOT 4 (7–10s) — Resolve
+• ACTION: both share a knowing look, natural rest pose
+• CAMERA: settles to wider medium
+• LIGHT: unchanged
+• EFFECT: speed ramp back to normal
+• @REFS: @Image1, @Image2
+
+STYLE: cinematic product testimonial, soft morning daylight, warm skin tones
+IDENTITY LOCK: Woman from @Image1, man from @Image2, product from @Image3 identical throughout
+CONSTRAINTS: smooth motion, no identity drift on either character, no warping
 ```
 
 If the creative NEEDS 3+ characters, split into multiple generations:
@@ -109,16 +132,39 @@ Common drift symptoms and fixes:
 
 ## One uncommon trick: dual reference for identity + outfit
 
-If the character's outfit matters (fashion ads, uniforms), split the reference. Uploads: `@Image1` = character face/features sheet, `@Image2` = outfit/wardrobe reference. 8s example:
+If the character's outfit matters (fashion, uniforms), split the reference. `@Image1` = face sheet, `@Image2` = outfit reference. 8s example:
 ```
-The character with the face from @Image1, wearing the outfit from @Image2, walks through a sunlit park. Warm golden hour sidelight.
+SHOT 1 (0–2s) — Enter
+• ACTION: character walks into frame at sunlit park
+• CAMERA: tracking alongside, medium
+• LIGHT: warm golden hour sidelight
+• EFFECT: none
+• @REFS: @Image1 face, @Image2 outfit
 
-Shot 1 (0–2s): Character (face from @Image1, outfit from @Image2) walks into frame, medium shot. Camera: tracking alongside.
-Shot 2 (2–4s): Character turns slightly, the outfit from @Image2 catches sidelight, fabric texture legible. Camera: continues tracking, 6-inch dolly-in.
-Shot 3 (4–6s): Signature beat — character stops, face from @Image1 fully lit, holds a small pose. Stacked effects: shallow rack focus + gentle speed ramp (deceleration) to ~60% speed.
-Shot 4 (6–8s): Energy resolves — character continues walking, framing stable, light holds warm. Camera comes to rest.
+SHOT 2 (2–4s) — Turn
+• ACTION: character turns slightly, outfit catches sidelight
+• CAMERA: continues tracking, 6-inch dolly-in
+• LIGHT: sidelight highlights fabric texture
+• EFFECT: none
+• @REFS: @Image2 outfit details clear
 
-Face features from @Image1 identical throughout. Outfit from @Image2 identical — same silhouette, colors, texture. Smooth motion, no identity drift.
+SHOT 3 (4–6s) — Pause (SIGNATURE)
+• ACTION: character stops, holds a small pose
+• CAMERA: settles to locked medium
+• LIGHT: face from @Image1 fully lit
+• EFFECT: stacked — shallow rack focus + speed ramp (deceleration) to ~60% speed
+• @REFS: @Image1 face clear
+
+SHOT 4 (6–8s) — Continue
+• ACTION: character resumes walking
+• CAMERA: comes to rest
+• LIGHT: warm holds
+• EFFECT: speed ramp back to normal
+• @REFS: @Image1, @Image2
+
+STYLE: fashion editorial cinematography, natural golden hour, 35mm lens
+IDENTITY LOCK: Face from @Image1 identical. Outfit from @Image2 identical — same silhouette, colors, texture
+CONSTRAINTS: smooth motion, stable framing, no identity drift
 ```
 
 This lets Seedance lock face and wardrobe independently. Useful when you have multiple outfits planned for the same character.
