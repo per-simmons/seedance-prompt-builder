@@ -15,14 +15,15 @@ Only the prompt text and any uploaded references (@Image1, @Video1, @Audio1) go 
 
 1. Read the user's brief.
 2. If the brief is too vague to build a full prompt (e.g. "make something cool"), ask ONE focused clarifying question. Otherwise proceed.
-3. If the brief involves a specific use case, load the matching reference file:
+3. **Break the video into timestamped beats (1–4 seconds each).** This is not optional — every prompt longer than 5 seconds is a timestamped shot list. See "Timestamping" below.
+4. If the brief involves a specific use case, load the matching reference file:
    - **Product ads / UGC / ecommerce** → read `references/product-ads.md`
-   - **Multi-shot sequences (>6s with scene changes)** → read `references/multi-shot.md`
+   - **Beat pacing, transitions, per-beat identity locking** → read `references/multi-shot.md`
    - **Multiple uploaded images/videos/audio** → read `references/references-syntax.md`
    - **Character consistency across shots** → read `references/characters.md`
    - **Complex camera choreography** → read `references/camera-moves.md`
-4. Build the prompt using the 6-step formula below.
-5. Output in the format specified under "Output format."
+5. Build the prompt using the 6-step formula below, applied to each beat.
+6. Output in the format specified under "Output format."
 
 ## The 6-step formula
 
@@ -64,6 +65,62 @@ Stacking motion verbs in a single shot ("she walks, turns, jumps, waves, smiles"
 ### Rule 7 — Reference videos should be short
 Trim reference videos to the key segment only. A 3-second clean reference outperforms a 10-second busy one.
 
+### Rule 8 — Quantify everything
+Numbers beat adjectives. `the frame rotates 15–20° clockwise over 2 seconds` lands cleaner than `the camera tilts a bit`. `approximately 20–25% speed` lands cleaner than `slow motion`. `1–2 feet of dolly movement` lands cleaner than `camera moves in`. Whenever you can put a number on a movement, an angle, a speed, or a distance, put one on it.
+
+### Rule 9 — Contrast drives impact
+Alternate beat density. A slow-motion beat hits harder right after a speed-ramped one. A clean locked-off shot feels weightier right after a handheld one. Don't stack two high-density beats back-to-back — the second one disappears. Plan beats in patterns like `high → low → high → low` or `build → peak → resolve`.
+
+### Rule 10 — Every prompt has one signature moment
+Before finalizing, identify the single beat that's the "hero" — the most visually distinctive moment, the one people will re-watch. Mark it explicitly in the prompt with phrasing like `This is the signature beat:` or `Signature moment —`. If you can't identify one, the prompt isn't strong enough yet; revise.
+
+### Rule 11 — Energy must resolve
+No matter how intense the opening beats, the final 20–30% of the video should land calmly. Effects withdraw, motion slows, the frame settles. A chaotic ending feels like the generation ran out of budget. An intentional resolution feels directed.
+
+## Named effects vocabulary
+
+Seedance responds better to precise effect names than generic language. When the brief calls for an effect, use these exact phrases:
+
+**Speed & time**
+- `speed ramp (deceleration)` — normal → slow-mo
+- `speed ramp (acceleration)` — slow-mo → normal
+- `slow motion, approximately 20–25% speed` — locked slow
+- `stroboscopic / multi-exposure clone` — subject duplicated across positions in a single frame
+- `freeze frame, motion hold` — single paused moment
+
+**Camera scale**
+- `digital zoom (scale-in)` — aggressive push-in
+- `digital zoom (scale-out / pull-back)` — pull-back reveal
+- `zoom pump` — quick scale in-and-out pulse for impact
+- `dolly-in, 1–2 feet` — physical-feeling move in
+- `dolly-out` — physical-feeling move out
+- `orbit / arc, 30–180°` — circle around subject
+
+**Camera motion**
+- `whip pan, right-to-left` (or opposite) — fast pan with motion blur smear
+- `tracking shot, parallel to subject`
+- `handheld, subtle natural shake`
+- `fixed / locked-off`
+- `frame rotation, 15–20° clockwise` (or counterclockwise)
+- `Dutch angle, 20–30° tilt`
+
+**Light & atmosphere**
+- `bloom flash, overexposed white highlights`
+- `volumetric god rays through [dust / mist / window]`
+- `lens flare, anamorphic horizontal streak`
+- `focus pull / rack focus`
+- `motion blur streak at [fast-moving element]`
+
+**Transitions (treat each as its own moment)**
+- `whip pan into next beat` — motion blur smear connecting shots
+- `bloom flash into next beat` — overexposed white wipe
+- `match cut on [repeated element]` — visual rhyme
+- `speed ramp into next beat`
+- `environment dissolve` — one location morphs into another around the subject
+- `no cut, continuous single take`
+
+When a beat stacks 2–3 of these simultaneously, mark it `stacked effects` in the prompt (e.g., `bloom flash + digital zoom scale-in + subtle camera shake — stacked effects, the signature beat`).
+
 ## The @ reference system (quick version)
 
 When the user uploads files, Seedance auto-tags them `@Image1`, `@Image2`, `@Video1`, `@Audio1`, etc. You must reference each tag in the prompt AND assign it a specific role. Max: 9 images + 3 videos (≤15s each) + 3 audio (≤15s each) = 12 references total.
@@ -78,6 +135,39 @@ When the user uploads files, Seedance auto-tags them `@Image1`, `@Image2`, `@Vid
 
 For multi-reference prompts or character locking, read `references/references-syntax.md` and `references/characters.md`.
 
+## Timestamping — the mandatory default
+
+**Every prompt longer than 5 seconds is a timestamped shot list.** Not a prose block. Not a single continuous description. A list of 1–4 second beats, each with its own number, timestamp, and action.
+
+This is how Rourke Heath prompts and how the official Seedance docs recommend structuring anything longer than a few seconds. Beats get better pacing fidelity than prose because Seedance uses them as scene anchors that pin exactly when each action should start and end. Prose prompts leave the model to guess timing, and it often rushes or skips beats.
+
+### Duration → beat count
+
+| Video length | Beats | Seconds per beat |
+|---|---|---|
+| 3–5s | 2–3 beats | 1–2s each (or a single beat if the action is truly atomic) |
+| 5–10s | **4–7 beats** | 1–2s each |
+| 10–15s | **8–12 beats** | 1–2s each |
+| 15s (max) | 12–14 beats | 1–1.5s each |
+
+The Hoka brand film reference (21 seconds) is broken into 14 shots at 1–2 seconds each. Apply the same density: **more, shorter beats beats fewer, longer ones.** Every beat is a chance to anchor a specific action, camera move, or effect.
+
+### Beat format
+
+```
+Shot N (Xs–Ys): [one visible action, one camera behavior, one lighting/effect note]
+```
+
+Each beat must have:
+- **One action verb** — not a list of things happening simultaneously
+- **One camera instruction** — dolly-in, handheld, fixed, orbit, etc. (or "continuing previous" if it's a single continuous move across beats)
+- **A lighting/effect note where it matters** — lighting shifts, effect entries, atmospheric changes
+- **@references where they apply** — re-reference `@Image1` in every beat the product/character appears in
+
+### When NOT to timestamp
+
+Only one case: the entire clip is a single atomic action under 5 seconds (e.g., a 3-second hero macro of a bottle with no character or camera motion). Everything else gets timestamped.
+
 ## Output format
 
 Always structure the output like this:
@@ -91,15 +181,19 @@ Always structure the output like this:
 ## Prompt (copy this into Seedance)
 
 ```
-[The 60–100 word paste-ready prompt, in plain prose — no markdown inside.
-Include the 6 formula elements naturally. Add @references inline where they apply.]
+[Opening scene-setting sentence — subject, environment, lighting.]
+
+Shot 1 (0–Xs): [action, camera, effect/lighting note]
+Shot 2 (Xs–Ys): [action, camera, effect/lighting note]
+Shot 3 (Ys–Zs): [action, camera, effect/lighting note]
+...
+
+[Closing line with overall camera arc if applicable, style anchor, @reference role locks, and the positive-constraint tail.]
 ```
 
 **Duration setting in Higgsfield:** [X seconds]
 **Aspect ratio:** [16:9 / 9:16 / 1:1 — match brief or default to 16:9]
 ```
-
-If the user asked for multi-shot, structure the "Prompt" block as a timed shot list (see `references/multi-shot.md`).
 
 Only add a "Director's notes" section at the bottom if the user explicitly asks for planning, effects breakdown, or a shot-by-shot inventory. Default output is prompt-only.
 
@@ -113,12 +207,12 @@ Pare this down for stylized/animated prompts. For anime or illustrated styles, r
 
 ## Duration calibration
 
-- **5–7 seconds:** 1 shot, 1 action, 1 camera move. ~50–70 word prompt.
-- **8–10 seconds:** 1–2 shots. ~70–90 words.
-- **11–15 seconds:** 2–4 shots, timestamped. ~90–150 words. Use multi-shot syntax.
-- **Past 15s:** Seedance generates per-shot up to 15s. For longer videos, generate multiple clips and stitch.
+- **3–5 seconds:** 2–3 beats if the action has stages, or a single beat if it's atomic (pure macro, no character motion).
+- **5–10 seconds:** 4–7 beats, each 1–2s. This is the most common range.
+- **10–15 seconds:** 8–12 beats, each 1–1.5s. Full three-act arc (build → peak → resolve) fits comfortably here.
+- **Past 15s:** Seedance generates per-shot up to 15s. For longer videos, generate multiple clips and stitch in post.
 
-Default to 10 seconds if the user doesn't specify.
+**Default to 15 seconds if the user doesn't specify.** This gives beat structure room to breathe and lands in Seedance's sweet spot.
 
 ## Clarifying questions — only when genuinely stuck
 
@@ -131,22 +225,34 @@ If the brief is workable, don't interrogate. Only ask ONE question if a critical
 
 ## Short end-to-end example
 
-**User:** "Quick 8-second UGC ad for a protein bar. Young woman eating it in a kitchen."
+**User:** "10-second UGC ad for a protein bar. Young woman eating it in a kitchen."
 
 **Assistant output:**
 
 ```
 # Seedance 2.0 Prompt
 
-**Target duration:** 8 seconds
-**References to upload:** @Image1 (product photo of the protein bar). If you want a specific creator likeness, you'll need a stylized character sheet — real face photos are blocked.
+**Target duration:** 10 seconds
+**References to upload:** @Image1 (product photo of the protein bar). If you want a specific creator likeness, generate a stylized character sheet first (Nano Banana or Midjourney) — real face photos are blocked at upload.
 
 ## Prompt (copy this into Seedance)
 
-A woman in her late twenties in a bright modern kitchen, morning light pouring through a north-facing window, unwraps a protein bar referenced from @Image1 and takes a single slow bite, her expression shifting from curious to genuinely pleased. Camera: handheld medium shot, subtle natural movement, no cuts. Style: iPhone UGC aesthetic, soft natural daylight, warm skin tones, lightly imperfect framing. Keep the product wrapper from @Image1 clean, legible, and identical across the shot. Smooth motion, stable framing, natural skin tones, photographic realism, no warping, no identity drift.
+A woman in her late twenties in a bright modern kitchen, soft morning light pouring through a north-facing window from camera-left, warm skin tones, lightly imperfect handheld framing.
 
-**Duration setting in Higgsfield:** 8 seconds
+Shot 1 (0–2s): The woman holds the protein bar from @Image1 at chest height, label facing camera, casually noticing it. Camera: handheld medium, subtle natural shake.
+
+Shot 2 (2–4s): She peels the wrapper halfway down, the motion unhurried, the wrapper from @Image1 staying clean and legible. Camera: continuing handheld, 1-foot dolly-in toward her hands. Low effect density.
+
+Shot 3 (4–6s): Signature beat — she takes the first slow bite, eyes closing briefly on the taste. Stacked effects: shallow rack focus pulling from the wrapper to her face + gentle speed ramp (deceleration) to approximately 50% speed during the bite.
+
+Shot 4 (6–8s): Speed ramps back up to normal. Her expression shifts from curious to pleased, a small smile breaks. Camera: continuing handheld, settling back out to medium framing.
+
+Shot 5 (8–10s): She lowers the bar into frame beside her, wrapper from @Image1 still legible, turns slightly and nods at something off-camera. Energy resolves — handheld motion calms, framing stabilizes, warm soft light holds.
+
+Style: iPhone UGC aesthetic, natural daylight, warm amber skin tones, 35mm film-like texture. Product wrapper from @Image1 identical throughout — same color, same logo, same text. Smooth handheld motion, stable framing through signature beat, natural skin tones, photographic realism, no warping, no identity drift, no flicker.
+
+**Duration setting in Higgsfield:** 10 seconds
 **Aspect ratio:** 9:16 (UGC default)
 ```
 
-This example shows the full pattern: subject specific, action one-verb, environment plus lighting, one camera move, style anchor, @ reference with explicit role, positive-constraint tail.
+This example shows the full pattern: opening scene-setting sentence, 5 timestamped beats of 1–2s each, one action verb per beat, one camera instruction per beat (plus continuity notes), quantified numbers (1-foot dolly, 50% speed), explicit signature beat with stacked effects called out, density contrast (low → signature → resolve), per-beat @reference re-locking, and the positive-constraint tail.

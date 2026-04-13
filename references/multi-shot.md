@@ -1,30 +1,29 @@
-# Multi-Shot Prompts for Seedance 2.0
+# Beat Pacing & Transitions for Seedance 2.0
 
-Load this when the user wants a sequence longer than one continuous shot — typically 8+ seconds with 2+ distinct beats, or any brief that describes multiple scenes/angles/actions.
+Load this when planning how to break a prompt into timestamped beats, choose transitions between them, and lock product/character identity across beats. Every prompt over 5 seconds uses this structure — it's the default format, not a special case.
 
 ## Contents
-- When to go multi-shot vs single-shot
+- Beat density by duration
 - Timestamp syntax
-- Transition vocabulary
-- Character and product consistency across shots
+- Transition vocabulary (every transition is a creative moment)
+- Consistency across beats (product, character, environment)
+- Density contrast — why beat rhythm matters
 - Worked examples
 
-## When to use multi-shot
+## Beat density
 
-Single shot (better):
-- 5–8 seconds, one continuous action
-- Hero macro of a product
-- One character doing one thing
-- UGC beat
+From the Seedance prompting docs and real-world creator practice:
 
-Multi-shot (needed):
-- 8+ seconds with scene/angle changes
-- Before/after, transformation
-- Narrative beat with setup + payoff
-- Product journey (studio → lifestyle)
-- Multiple characters interacting in different framings
+| Duration | Beats | Seconds per beat |
+|---|---|---|
+| 3–5s | 2–3 beats (or 1 if atomic) | 1–2s each |
+| 5–10s | **4–7 beats** | 1–2s each |
+| 10–15s | **8–12 beats** | 1–1.5s each |
+| 15s (max) | 12–14 beats | 1–1.5s each |
 
-Seedance 2.0 is remarkably good at multi-shot — it can deliver 3–4 cohesive shots in a single 15-second generation without drift, IF you structure the prompt correctly.
+**More, shorter beats ≫ fewer, longer ones.** Every beat is a chance to anchor a specific action, camera move, or effect for Seedance. Prose blocks without beats let the model guess pacing, and it usually rushes or skips.
+
+The only exception: a single atomic action under 5s (e.g., a 3-second hero macro of a bottle with no character or camera motion). Everything else timestamps.
 
 ## Timestamp syntax (pick one — stay consistent)
 
