@@ -39,15 +39,7 @@ Do NOT use: `24fps`, `aperture f/1.8`, `ISO 400`, `shutter 1/60`. Seedance doesn
 
 ## Compound camera motion — split into shots
 
-If the creative calls for "camera pushes in WHILE orbiting WHILE tilting up," that's three moves. Seedance will produce chaos. Split it into timed shots:
-
-```
-Shot 1 (0–3s): Slow dolly-in on the subject, camera at chest height.
-Shot 2 (3–6s): Gentle orbit around the subject, camera now at eye height.
-Shot 3 (6–10s): Slow tilt up to reveal the sky above.
-```
-
-Each shot gets its one move. Transitions are implied between shots.
+If the creative calls for "camera pushes in WHILE orbiting WHILE tilting up," that's three moves. Seedance will produce chaos. Split it into three consecutive shots in the SHOT format defined in SKILL.md — each shot gets one CAMERA bullet. For example: shot 1 dolly-in, shot 2 orbit, shot 3 tilt-up.
 
 ## Motion keywords that break Seedance
 
