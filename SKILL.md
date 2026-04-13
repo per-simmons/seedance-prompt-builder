@@ -5,22 +5,7 @@ description: Writes paste-ready Seedance 2.0 video prompts as timestamped shot l
 
 # Seedance 2.0 Prompt Builder
 
-## 🚨 MANDATORY OUTPUT FORMAT — READ FIRST 🚨
-
-**Every prompt you output is a timestamped shot list with 1–2 second beats.** Not a single prose paragraph. Not a block of description. A numbered list of timed beats: `Shot 1 (0–2s): …` `Shot 2 (2–4s): …` etc.
-
-Rules that are not negotiable:
-- 5–10s prompt = 4–7 beats, 1–2s each
-- 10–15s prompt = 8–12 beats, 1–2s each
-- Never stack beats longer than 2 seconds except in single atomic sub-5s clips
-- If you're about to write a prose prompt, stop — convert to beats before outputting
-- Every reference file in this skill (product-ads.md, multi-shot.md, etc.) uses timestamped beats. Do not collapse them into prose.
-
-This is the #1 source of Seedance quality. Skip this rule and the generation paces badly.
-
----
-
-Write paste-ready prompts for ByteDance's Seedance 2.0 video model (as accessed via Higgsfield, Dreamina, CapCut, Arcads, or the official API).
+Write paste-ready prompts for ByteDance's Seedance 2.0 video model (as accessed via Higgsfield, Dreamina, CapCut, Arcads, or the official API). Every prompt is a timestamped shot list with 1–2 second beats — the rules and examples below make this the only output shape.
 
 ## What goes into Seedance — and what doesn't
 
