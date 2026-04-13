@@ -1,6 +1,6 @@
 ---
 name: seedance-prompt-builder
-description: Writes paste-ready Seedance 2.0 video prompts as timestamped shot lists (1–2 second beats) — never as single prose paragraphs. Use whenever the user wants a Seedance prompt, plan a shot, build a product ad, create a brand film, animate a scene, or mentions Seedance, Higgsfield, ByteDance video, or AI video generation. Also trigger when the user describes a visual sequence, ad concept, character action, product demo, or any video they want turned into a generation-ready prompt — even without saying "Seedance." Trigger phrases include "write a video prompt", "Seedance prompt", "make a video of", "animate this", "product ad with AI video", "turn this product photo into a video", "shot list for Seedance", or any brief that needs to become a video generation prompt.
+description: Writes paste-ready Seedance 2.0 video prompts in the correct format for the brief — continuous-mode flowing prose for single-take hero shots (product macro, seamless cinematic single takes) OR cut-mode SHOT bullet templates for multi-scene edits (UGC with beats, transformations, brand films). Use whenever the user wants a Seedance prompt, plan a shot, build a product ad, create a brand film, animate a scene, or mentions Seedance, Higgsfield, ByteDance video, or AI video generation. Also trigger when the user describes a visual sequence, ad concept, character action, product demo, or any video they want turned into a generation-ready prompt — even without saying "Seedance." Trigger phrases include "write a video prompt", "Seedance prompt", "make a video of", "animate this", "product ad with AI video", "turn this product photo into a video", "one continuous shot", "seamless shot", or any brief that needs to become a video generation prompt.
 ---
 
 # Seedance 2.0 Prompt Builder
@@ -135,42 +135,34 @@ When the user uploads files, Seedance auto-tags them `@Image1`, `@Image2`, `@Vid
 
 For multi-reference prompts or character locking, read `references/references-syntax.md` and `references/characters.md`.
 
-## Timestamping — the mandatory default
+## Mode decision — pick one before writing
 
-**Every prompt longer than 5 seconds is a timestamped shot list.** Not a prose block. Not a single continuous description. A list of 1–2 second beats, each with its own number, timestamp, and action.
+Every prompt is either **continuous mode** or **cut mode**. The decision is based on the brief, and it determines the output format. Get this wrong and Seedance produces unwanted cuts or a flat static shot.
 
-This is how Rourke Heath prompts and how the official Seedance docs recommend structuring anything longer than a few seconds. Beats get better pacing fidelity than prose because Seedance uses them as scene anchors that pin exactly when each action should start and end. Prose prompts leave the model to guess timing, and it often rushes or skips beats.
+### Continuous mode
+Use when the brief describes ONE camera move in ONE location with ONE continuous action. Typical cases:
+- Product hero macro shots (droplet falls, lid opens, orbit around object)
+- Single-take UGC (one handheld shot of one person doing one thing)
+- "Seamless," "one continuous shot," "no cuts," "smooth flow" in the brief
+- Any brief where cuts would be arbitrary (nothing new is being revealed from a different angle)
 
-### Duration → beat count
+**Output format**: pure prose paragraphs. No beats, no SHOT headers, no numbered shots, no labeled sections. One flowing description of the whole clip.
 
-| Video length | Beats | Seconds per beat |
-|---|---|---|
-| 3–5s | 2–3 beats | 1–2s each (or a single beat if the action is truly atomic) |
-| 5–10s | **4–7 beats** | 1–2s each |
-| 10–15s | **8–12 beats** | 1–2s each |
-| 15s (max) | 12–14 beats | 1–1.5s each |
+### Cut mode
+Use when the brief has multiple scenes, angle changes, time jumps, transformations, or dialogue beats. Typical cases:
+- Transformation / before-after ads (Format 4 in `product-ads.md`)
+- Multi-shot UGC with narrative beats (Format 1, 2)
+- Brand films with location or time changes
+- Athletic / action edits with deliberate cuts
 
-The Hoka brand film reference (21 seconds) is broken into 14 shots at 1–2 seconds each. Apply the same density: **more, shorter beats beats fewer, longer ones.** Every beat is a chance to anchor a specific action, camera move, or effect.
+**Output format**: the strict SHOT bullet template below.
 
-### Beat format
+### If unsure
+If the brief fits continuous mode but you're tempted to write beats, switch to continuous mode. Seedance reads `SHOT 1 / SHOT 2 / SHOT 3` headers as literal editorial cuts. For a single-take hero shot, that creates the exact cuts you're trying to avoid.
 
-```
-Shot N (Xs–Ys): [one visible action, one camera behavior, one lighting/effect note]
-```
+## Output format — cut mode
 
-Each beat must have:
-- **One action verb** — not a list of things happening simultaneously
-- **One camera instruction** — dolly-in, handheld, fixed, orbit, etc. (or "continuing previous" if it's a single continuous move across beats)
-- **A lighting/effect note where it matters** — lighting shifts, effect entries, atmospheric changes
-- **@references where they apply** — re-reference `@Image1` in every beat the product/character appears in
-
-### When NOT to timestamp
-
-Only one case: the entire clip is a single atomic action under 5 seconds (e.g., a 3-second hero macro of a bottle with no character or camera motion). Everything else gets timestamped.
-
-## Output format — strict template
-
-Use this exact template. Do NOT add an opening prose paragraph before the shots. Do NOT collapse multiple beats into prose. Every shot is a multi-line bulleted block.
+Use when the decision above lands on cut mode. Strict multi-line bulleted template.
 
 ```
 # Seedance 2.0 Prompt
@@ -195,9 +187,9 @@ SHOT 2 (Xs–Ys) — [Shot name]
 • EFFECT: ...
 • @REFS: ...
 
-[... more shots at 1–2s each ...]
+[... more shots at 1–2s each, 4–7 beats for 5–10s video, 8–12 beats for 10–15s ...]
 
-SHOT N (…–Xs) — Resolution (SIGNATURE moment if it's the hero beat)
+SHOT N (…–Xs) — Resolution (SIGNATURE if it's the hero beat)
 • ACTION: ...
 • CAMERA: ...
 • LIGHT: ...
@@ -214,7 +206,37 @@ Rules:
 - Each shot is the five bullets above. Always five. If an element doesn't apply, write "none" — don't omit the bullet.
 - Mark the single hero beat with `(SIGNATURE)` after the shot name.
 - STYLE / IDENTITY LOCK / CONSTRAINTS go at the end as three labeled lines.
-- Do not write any prose outside of this template.
+- Do not write prose outside this template.
+
+## Output format — continuous mode
+
+Use when the decision above lands on continuous mode. Flowing prose, no beats, no labels, no SHOT headers.
+
+```
+# Seedance 2.0 Prompt
+
+**Target duration:** [X] seconds
+**Aspect ratio:** [16:9 / 9:16 / 1:1]
+**References to upload:** [list @Image1/@Video1/@Audio1 roles, or "text-only"]
+
+## Prompt (copy this into Seedance)
+
+[Opening paragraph — scene, subject, environment, lighting. Describe the space and the @Image1 references.]
+
+[Camera paragraph — ONE unbroken camera move for the entire duration. Use phrasing like "a single, unbroken, continuous forward dolly" or "one continuous orbiting push-in." State explicitly: "no cuts, no resets, no jumps, constant steady camera speed."]
+
+[Action paragraph — all product/subject action described as happening SIMULTANEOUSLY during the camera move. Do not use timestamps. Use phrasing like "As the camera continuously approaches..." or "During this single continuous dolly..."]
+
+[Final paragraph — style anchor, product identity lock, constraints. Inline prose, no labels. Repeat "one unbroken continuous take" at the end.]
+```
+
+Rules for continuous mode:
+- No numbered shots, no SHOT headers, no timestamps, no labeled sections.
+- Front-load `CAMERA MOVEMENT:` or describe the camera as one unbroken move in the second paragraph. Repeat "no cuts, no resets" at least twice across the prompt.
+- Action happens DURING the camera move, not in sequenced phases. Fold all actions into one simultaneous description.
+- Do NOT stack speed ramp + rack focus + subject motion together — this combination causes temporal morphing and often forces a cut.
+- Do NOT write "SHOT 1" anywhere in the prompt — Seedance reads that as an editorial cut signal.
+- Identity lock and constraints go inline in the final paragraph as prose, not as `STYLE:` / `CONSTRAINTS:` labels.
 
 Only add a "Director's notes" section at the bottom if the user explicitly asks for planning. Default output is prompt-only.
 
